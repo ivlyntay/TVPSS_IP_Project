@@ -1,4 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%@ page import="com.example.model.User"%>
+<%
+    // Retrieve the session user object
+    User user = (User) session.getAttribute("user");
+
+    if (user != null) {
+        // Retrieve form parameters
+        String youtubeLink = request.getParameter("ytbLink");
+        String youtubeChannelName = request.getParameter("ytbName");
+
+        // Update the user object
+        if (youtubeLink != null && youtubeChannelName != null) {
+            user.setYoutubeLink(youtubeLink);
+            user.setYoutubeChannelName(youtubeChannelName);
+
+            // Update the session attribute
+            session.setAttribute("user", user);
+
+            // Optional: Save the updated user details to a database
+            // Example:
+            // UserDAO.updateUser(user);
+        }
+
+        
+    } else {
+        // If no user in session, redirect to login
+        response.sendRedirect("login.jsp");
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,49 +42,21 @@
 <body>
 	<div class="container">
 		<!-- Sidebar -->
-		<%--  <%@ include file="../../sidebar.jsp" %> --%>
-		<aside class="sidebar">
-            <div class="logo">
-                <img src="../../img/logo.png" alt="TVPSS Logo" class="logo-image">
-                TVPSS 7G
-            </div>
-            <ul class="menu">
-                <li><a href="#"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
-                <li><a href="#"><i class="bi bi-journal-text"></i> Content Management</a></li>
-                <li><a href="#"><i class="bi bi-bar-chart"></i> Program Status Management</a></li>
-                <li><a href="../crew/crewList.jsp"><i class="bi bi-people"></i> Crew Management</a></li>
-                <li  class="active"><a href="../profile/profile.jsp"><i class="bi bi-person"></i> Profile</a></li>
-                <li><a href="../setting/setting.jsp"><i class="bi bi-gear"></i> Settings</a></li>
-                <li class="separator"></li>
-                <li class="logout"><a href="#"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
-            </ul>
-        </aside>
+		<%@ include file="sidebar_profile.jsp" %>
 
 		<!-- Main Content -->
 		<main class="content">
-			<header class="header">
-				<div class="header-right">
-					<div class="profile">
-						<img src="../../img/profile.png" alt="Moni Roy" class="profile-image">
-						<div class="profile-details">
-							<span class="profile-name">Moni Roy</span><br>
-							<span class="role">Admin</span>
-						</div>
-					</div>
-				</div>
-			</header>
+			<%@ include file="../header_admin.jsp" %>
 
 			<h1>Edit Profile</h1>
 			<div class="form-container">
 				<!-- Profile Image Upload -->
 				<div class="image-upload">
-					<div class="image-circle">
-						<img src="../../img/profile.png" alt="Moni Roy">
+					<div class="image-circle" id="image-circle">
+						<img src="../../img/profile.png" id="profile-pic" >
 					</div>
-					<label for="crew-photo" class="upload-label">Upload Profile Picture</label> <input type="file" id="crew-photo" name="crewPhoto"
-						style="opacity: 0" accept="image/*">
-					<!-- <label for="crew-photo" class="upload-label">Upload Profile Picture</label> 
-					<input type="file" id="crew-photo" name="crewPhoto" accept="image/*"> -->
+					<label for="crew-photo" class="upload-label">Upload Profile Picture</label> 
+					<input type="file" id="crew-photo" name="crewPhoto" style="opacity: 0" accept="image/*">	
 				</div>
 
 				<!-- Form Fields (Editable) -->
@@ -122,6 +124,7 @@
 				</form>
 			</div>
 		</main>
+		<script src="../../js/script.js"></script>
 	</div>
 </body>
 </html>

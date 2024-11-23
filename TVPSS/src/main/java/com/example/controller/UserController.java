@@ -1,52 +1,92 @@
 package com.example.controller;
-import com.example.model.User;
+
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.example.model.User;
 
 @WebServlet("/UserController")
 public class UserController extends HttpServlet {
-	private Map<String, String> users = new HashMap<>();
+    private Map<String, User> users = new HashMap<>();
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	        throws ServletException, IOException {
-	    try {
-	        String action = request.getParameter("action");
-	        String email = request.getParameter("email");
-	        String password = request.getParameter("password");
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            // Get action and user inputs
+            String action = request.getParameter("action");
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
 
-	        if ("register".equals(action)) {
-	            if (users.containsKey(email)) {
-	                request.setAttribute("message", "Username already exists. Try another.");
-	                RequestDispatcher rd = request.getRequestDispatcher("/register.jsp");
-	                rd.forward(request, response);
-	            } else {
-	                users.put(email, password);
-	                request.setAttribute("message", "Registration successful! You can now login.");
-	                RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
-	                rd.forward(request, response);
-	            }
-	        } else if ("login".equals(action)) {
-	            if (users.containsKey(email) && users.get(email).equals(password)) {
-	                request.setAttribute("email", email);
-	                response.sendRedirect("school/crew/crewList.jsp");
-	            } else {
-	                request.setAttribute("message", "Invalid username or password. Try again.");
-	                RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
-	                rd.forward(request, response);
-	            }
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        response.getWriter().println("Error: " + e.getMessage());
-	    }
-	}
+            // Session object
+            HttpSession session = request.getSession();
 
+            // Handle actions
+            if ("register".equals(action)) {
+                handleRegistration(request, response, session);
+            } else if ("login".equals(action)) {
+                handleLogin(request, response, email, password, session);
+            } else {
+                response.getWriter().println("Invalid action.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.getWriter().println("Error: " + e.getMessage());
+        }
+    }
+
+    private void handleRegistration(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+            throws ServletException, IOException {
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String fullName = request.getParameter("fullname");
+        String icNumber = request.getParameter("icNumber");
+        String schoolName = request.getParameter("schoolName");
+        String district = request.getParameter("district");
+        String contactNumber = request.getParameter("contactNumber");
+
+        if (users.containsKey(email)) {
+            // User already exists
+            request.setAttribute("message", "Email already exists. Try another.");
+            forwardToPage(request, response, "/register.jsp");
+        } else {
+            // Register user
+            User newUser = new User(fullName, icNumber, schoolName, district, email, contactNumber, password);
+            users.put(email, newUser);
+
+            // Store user data in session
+            session.setAttribute("user", newUser);
+
+            request.setAttribute("message", "Registration successful! You can now login.");
+            forwardToPage(request, response, "/login.jsp");
+        }
+    }
+
+    private void handleLogin(HttpServletRequest request, HttpServletResponse response, String email, String password, HttpSession session)
+            throws ServletException, IOException {
+        if (users.containsKey(email) && users.get(email).getPassword().equals(password)) {
+            // Login successful
+            session.setAttribute("user", users.get(email));
+            response.sendRedirect("school/profile/profile.jsp");
+        } else {
+            // Invalid login
+            request.setAttribute("message", "Invalid username or password. Try again.");
+            forwardToPage(request, response, "/login.jsp");
+        }
+    }
+
+    private void forwardToPage(HttpServletRequest request, HttpServletResponse response, String page)
+            throws ServletException, IOException {
+        RequestDispatcher rd = request.getRequestDispatcher(page);
+        rd.forward(request, response);
+    }
 }

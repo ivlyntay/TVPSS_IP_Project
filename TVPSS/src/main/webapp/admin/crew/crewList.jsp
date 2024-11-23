@@ -19,7 +19,7 @@
                 <div class="profile">
                     <img src="../../img/profile.png" alt="Moni Roy" class="profile-image">
                     <div class="header-profile">
-                        <span class="profile-name">Moni Roy</span><br>
+                     <span class="profile-name">Moni Roy</span><br>              
                         <span class="role">Admin</span>
                     </div>
                 </div>

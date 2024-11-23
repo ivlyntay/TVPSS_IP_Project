@@ -4,30 +4,32 @@ public class User {
 	private String fullName;
     private String icNumber;
     private String schoolName;
+    private String district;
     private String email;
     private String contactNumber;
-    private String district;
+    private String password;
     private String ytbLink;
     private String ytbName;
-	private String password;
+	
 
-	public User(String email, String password) {
-		this.email = email;
-		this.password = password;
+    public User(String fullName, String icNumber, String schoolName, String district, String email, String contactNumber, String password) {
+        this.fullName = fullName;
+        this.icNumber = icNumber;
+        this.schoolName = schoolName;
+        this.district = district;
+        this.email = email;
+        this.contactNumber = contactNumber;
+        this.password = password;
+    }
 
-	}
+	/*
+	 * public User(String fullName, String icNumber, String schoolName, String
+	 * email, String contactNumber, String district, String ytbLink, String ytbName)
+	 * { this.fullName = fullName; this.icNumber = icNumber; this.schoolName =
+	 * schoolName; this.email = email; this.contactNumber = contactNumber;
+	 * this.district = district; this.ytbLink = ytbLink; this.ytbName = ytbName;
+	 */
 
-	public User(String fullName, String icNumber, String schoolName, String email, String contactNumber, 
-            String district, String ytbLink, String ytbName) {
-    this.fullName = fullName;
-    this.icNumber = icNumber;
-    this.schoolName = schoolName;
-    this.email = email;
-    this.contactNumber = contactNumber;
-    this.district = district;
-    this.ytbLink = ytbLink;
-    this.ytbName = ytbName;
-}
 	
 	 public String getFullName() { return fullName; }
 	    public void setFullName(String fullName) { this.fullName = fullName; }
