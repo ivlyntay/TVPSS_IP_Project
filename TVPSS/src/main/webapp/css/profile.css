@@ -1,0 +1,121 @@
+/* Form Container */
+.form-container {
+	background: white;
+	padding: 30px;
+	border-radius: 10px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	text-align: center;
+}
+
+/* Image Upload Section */
+.image-upload {
+	margin-bottom: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center; /* Horizontally centers content */
+	justify-content: center; /* Vertically centers content */
+	height: 150px;
+	/* Adjust this to control the height of the upload area */
+}
+
+.image-circle {
+	width: 80px;
+	height: 80px;
+	background: #eee;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 10px;
+	/* Adds spacing between the circle and the label */
+	font-size: 24px;
+	color: #666;
+}
+
+.upload-label {
+	color: #4379EE;
+	cursor: pointer;
+	text-align: center;
+	font-size: 16px; /* Font size for better readability */
+	display: inline-block;
+	transition: text-decoration 0.3s ease;
+	/* Smooth transition for underline */
+}
+
+.upload-label:hover {
+	text-decoration: underline; /* Underline on hover */
+}
+
+/* Form Grid */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #F5F6FA;
+}
+
+.form-group input::placeholder {
+    color: #aaa;
+}
+
+.form-group select {
+    appearance: none;
+    background: #F5F6FA;
+    cursor: pointer;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
+.btn-primary {
+    background: #4880FF;
+    color: #FFFFFF;
+}
+
+.btn-primary:hover {
+    background-color: #3767b4;
+}
+
+.btn-secondary {
+    background-color: #ddd;
+    color: black;
+}
+
+.btn-secondary:hover {
+    background-color: #bbb;
+}
+

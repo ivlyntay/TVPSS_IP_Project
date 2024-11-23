@@ -1,0 +1,404 @@
+/* Reset Styles */
+*,
+body, h1, h2, h3, ul, li, p, table, th, td {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+     font-family: Arial, sans-serif;
+    background: #f9f9f9;
+    color: #333;
+}
+
+/* Layout Styling */
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 240px;
+    background: #FFFFFF;
+    color: #202224;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    height: 100vh;
+    border-right: 1px solid #ddd;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.logo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.menu {
+    list-style: none;
+}
+
+.menu li {
+    margin-bottom: 15px;
+}
+
+.menu li a {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-radius: 8px;
+    color: #202224;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.menu li a i {
+    margin-right: 12px;
+    font-size: 1.2rem;
+    color: inherit;
+}
+
+.menu .active a {
+    background-color: #4880FF;
+    color: #FFFFFF;
+}
+
+.menu a:hover:not(.active) {
+    background-color: #979797;
+    color: white;
+}
+
+.menu .separator {
+    border-top: 1px solid #ccc;
+    margin: 10px 0;
+}
+
+.menu .logout a {
+    color: red;
+    font-weight: bold;
+}
+
+.menu .logout a:hover {
+    background-color: #ffcccc;
+    color: darkred;
+}
+
+/* Content Section */
+.content {
+    flex: 1;
+    padding: 20px;
+    background: #F5F6FA;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Header Styling */
+.header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #FFFFFF;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* Search Bar */
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+.header-search-bar {
+    padding: 10px 10px 10px 30px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 250px;
+    background: #FFFFFF;
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #888;
+}
+
+.header-search-bar:focus {
+    outline: none;
+    border-color: #4880FF;
+    box-shadow: 0px 0px 5px rgba(72, 128, 255, 0.5);
+}
+
+/* Table Styling */
+table {
+    background: white;
+    border-radius: 6px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #FAFAFA;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+/* Form Container */
+.form-container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    text-align: left;
+}
+
+/* Image Upload Section */
+.image-upload {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+}
+
+.image-circle {
+    width: 80px;
+    height: 80px;
+    background: #eee;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: #666;
+    overflow: hidden;
+}
+
+.image-circle img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.upload-label {
+    color: #4379EE;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+    display: inline-block;
+    transition: text-decoration 0.3s ease;
+}
+
+
+.upload-label:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Form Grid */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #F5F6FA;
+}
+
+.form-group input::placeholder {
+    color: #aaa;
+}
+
+.form-group select {
+    appearance: none;
+    background: #F5F6FA;
+    cursor: pointer;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
+.btn-primary {
+    background: #4880FF;
+    color: #FFFFFF;
+}
+
+.btn-primary:hover {
+    background-color: #3767b4;
+}
+
+.btn-secondary {
+    background-color: #ddd;
+    color: black;
+}
+
+.btn-secondary:hover {
+    background-color: #bbb;
+}
+
+/* Filter Section */
+.filter-section {
+    margin-bottom: 20px;
+}
+
+.filter-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.filter-item {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: #333;
+}
+
+.filter-item i {
+    margin-right: 5px;
+}
+
+.filter-dropdown {
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+}
+
+.reset-button {
+    padding: 8px 15px;
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.reset-button i {
+    font-size: 1rem;
+}
+
+.reset-button:hover {
+    background-color: #cc0000;
+}
+
+/* Crew List Actions */
+.action-btn {
+    background: #EEEFF1;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.action-btn i.bi-trash {
+    color: red;
+}
+
+.action-btn:hover {
+    background-color: #979797;
+}
+
+/* View Crew Profile */
+.crew-image {
+    width: 100px; /* Increase the image size if needed */
+    height: 150px;
+    background-color: #ddd;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.profile-details table {
+    width: 100%; /* Adjust width as needed */
+    font-size: 16px; /* Font size for the table */
+    border: none; /* Remove outer border of the table */
+}
+
+.profile-details td {
+    padding: 20px 30px; /* Add padding to cells */
+    vertical-align: top; /* Align text to the top */
+   	border: none;
+}
+
+.profile-details td:first-child {
+    font-weight: bold; /* Make the labels bold */
+    width: 200px; /* Set a fixed width for the label column */
+    color: #555; /* Label text color */
+}
+
+.profile-details tr{
+    background-color: #ffffff;
+    border: none; /* Remove borders between cells */
+}

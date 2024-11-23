@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                             http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" 
+         id="WebApp_ID" version="4.0">
+  
+  <display-name>UserRegistrationLogin</display-name>
+  
+  <!-- UserController Servlet -->
+  <servlet>
+    <servlet-name>UserController</servlet-name>
+    <servlet-class>com.example.controller.UserController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserController</servlet-name>
+    <url-pattern>/UserController/*</url-pattern>
+  </servlet-mapping>
+  
+  <!-- CrewServlet -->
+  <servlet>
+    <servlet-name>CrewServlet</servlet-name>
+    <servlet-class>com.example.controller.CrewServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CrewServlet</servlet-name>
+    <url-pattern>/school/crew/CrewServlet</url-pattern>
+</servlet-mapping>
+  <!-- Static resources -->
+  <servlet>
+    <servlet-name>default</servlet-name>
+    <servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
+    <init-param>
+      <param-name>debug</param-name>
+      <param-value>0</param-value>
+    </init-param>
+    <init-param>
+      <param-name>listings</param-name>
+      <param-value>false</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/css/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/js/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/img/*</url-pattern>
+  </servlet-mapping>
+
+  <!-- Welcome File -->
+  <welcome-file-list>
+    <welcome-file>register.jsp</welcome-file>
+  </welcome-file-list>
+
+</web-app>
