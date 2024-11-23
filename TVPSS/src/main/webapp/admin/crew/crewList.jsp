@@ -14,17 +14,7 @@
     <div class="container">
     <%@ include file="adminsidebar.jsp" %>
     <main class="content">
-        <header class="header">
-            <div class="header-right">
-                <div class="profile">
-                    <img src="../../img/profile.png" alt="Moni Roy" class="profile-image">
-                    <div class="header-profile">
-                     <span class="profile-name">Moni Roy</span><br>              
-                        <span class="role">Admin</span>
-                    </div>
-                </div>
-            </div>
-        </header>
+        <%@ include file="../header_tvpss.jsp" %>
         
         <h1>Crew List</h1>
         <!-- Filter Section -->

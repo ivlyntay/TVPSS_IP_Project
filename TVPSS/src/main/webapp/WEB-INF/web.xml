@@ -26,6 +26,17 @@
     <servlet-name>CrewServlet</servlet-name>
     <url-pattern>/school/crew/CrewServlet</url-pattern>
 </servlet-mapping>
+
+  <!-- UserServlet -->
+<servlet>
+    <servlet-name>UserServlet</servlet-name>
+    <servlet-class>com.example.controller.UserServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>UserServlet</servlet-name>
+    <url-pattern>/admin/user/UserServlet</url-pattern>
+</servlet-mapping>
+
   <!-- Static resources -->
   <servlet>
     <servlet-name>default</servlet-name>

@@ -17,7 +17,21 @@ import com.example.model.User;
 @WebServlet("/UserController")
 public class UserController extends HttpServlet {
     private Map<String, User> users = new HashMap<>();
+    private static int idCounter = 0;
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
 
+        if (user != null) {
+            // Pass the user data to the settings page
+            request.setAttribute("user", user);
+            forwardToPage(request, response, "school/setting/setting.jsp");
+        } else {
+            response.sendRedirect("/login.jsp");
+        }
+    }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -53,6 +67,7 @@ public class UserController extends HttpServlet {
         String schoolName = request.getParameter("schoolName");
         String district = request.getParameter("district");
         String contactNumber = request.getParameter("contactNumber");
+      
 
         if (users.containsKey(email)) {
             // User already exists
@@ -60,7 +75,7 @@ public class UserController extends HttpServlet {
             forwardToPage(request, response, "/register.jsp");
         } else {
             // Register user
-            User newUser = new User(fullName, icNumber, schoolName, district, email, contactNumber, password);
+            User newUser = new User(generateId(),fullName, icNumber, schoolName, district, email, contactNumber, password);
             users.put(email, newUser);
 
             // Store user data in session
@@ -70,6 +85,10 @@ public class UserController extends HttpServlet {
             forwardToPage(request, response, "/login.jsp");
         }
     }
+    private int generateId() {
+        return idCounter++;
+    }
+
 
     private void handleLogin(HttpServletRequest request, HttpServletResponse response, String email, String password, HttpSession session)
             throws ServletException, IOException {

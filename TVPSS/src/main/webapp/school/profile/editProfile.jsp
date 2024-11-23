@@ -1,34 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <%@ page import="com.example.model.User"%>
-<%
-    // Retrieve the session user object
-    User user = (User) session.getAttribute("user");
-
-    if (user != null) {
-        // Retrieve form parameters
-        String youtubeLink = request.getParameter("ytbLink");
-        String youtubeChannelName = request.getParameter("ytbName");
-
-        // Update the user object
-        if (youtubeLink != null && youtubeChannelName != null) {
-            user.setYoutubeLink(youtubeLink);
-            user.setYoutubeChannelName(youtubeChannelName);
-
-            // Update the session attribute
-            session.setAttribute("user", user);
-
-            // Optional: Save the updated user details to a database
-            // Example:
-            // UserDAO.updateUser(user);
-        }
-
-        
-    } else {
-        // If no user in session, redirect to login
-        response.sendRedirect("login.jsp");
-    }
-%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,7 +17,7 @@
 
 		<!-- Main Content -->
 		<main class="content">
-			<%@ include file="../header_admin.jsp" %>
+			<%@ include file="../header_school.jsp" %>
 
 			<h1>Edit Profile</h1>
 			<div class="form-container">

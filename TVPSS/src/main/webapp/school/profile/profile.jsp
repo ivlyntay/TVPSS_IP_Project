@@ -19,7 +19,7 @@
 
 		<!-- Main Content -->
 		<main class="content">
-			<%@ include file="../header_admin.jsp" %>
+			<%@ include file="../header_school.jsp" %>
 			<h1>Profile</h1>
             <div class="form-container">
                 <!-- Profile Image Upload -->

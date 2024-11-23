@@ -21,27 +21,21 @@
 				TVPSS 7G
 			</div>
 			<ul class="menu">
-				<li><a href="#"><i class="bi bi-speedometer2"></i>
-						Dashboard</a></li>
-				<li><a href="#"><i class="bi bi-journal-text"></i> Content
-						Management</a></li>
-				<li><a href="#"><i class="bi bi-bar-chart"></i> Program
-						Status Management</a></li>
-				<li><a href="../crew/crewList.jsp"><i class="bi bi-people"></i>
-						Crew Management</a></li>
-				<li><a href="../profile/profile.jsp"><i
-						class="bi bi-person"></i> Profile</a></li>
-				<li class="active"><a href="../setting/setting.jsp"><i
-						class="bi bi-gear"></i> Settings</a></li>
-				<li class="separator"></li>
-				<li class="logout"><a href="#"><i
-						class="bi bi-box-arrow-right"></i> Logout</a></li>
-			</ul>
+        <li><a href="#"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+        <li><a href="../user/userList.jsp"><i class="bi bi-border-all"></i> User Management</a></li>
+        <li><a href="#"><i class="bi bi-journal-text"></i> Content Management</a></li>
+        <li><a href="#"><i class="bi bi-bar-chart"></i> Program Status Management</a></li>
+        <li><a href="../crew/crewList.jsp"><i class="bi bi-people"></i> Crew Management</a></li>
+        <li><a href="../profile/profile_tvpss.jsp"><i class="bi bi-person"></i> Profile</a></li>
+        <li class="active"><a href="../setting/setting_tvpss.jsp"><i class="bi bi-gear"></i> Settings</a></li>
+        <li class="separator"></li>
+        <li class="logout"><a href="#"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+    </ul>
 		</aside>
 
 		<!-- Main Content -->
 		<main class="content">
-			<%@ include file="../header_school.jsp" %>
+			<%@ include file="../header_tvpss.jsp" %>
 
 			<h1>Settings</h1>
 			<div class="form-container">
@@ -53,7 +47,7 @@
 							<label for="password">Current Password</label>
 							<div class="password-container">
 								<input type="password" id="password" name="currentPassword"
-									value="<%= user.getPassword() %>"  required> <i
+									value="${currentPassword}" required> <i
 									class="bi bi-eye-slash" id="togglePassword1"
 									onclick="togglePasswordVisibility('password', 'togglePassword1')"></i>
 							</div>

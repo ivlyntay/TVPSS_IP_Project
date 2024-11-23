@@ -14,7 +14,7 @@
         <%@ include file="sidebar.jsp" %>
         <!-- Main Content -->
         <main class="content">
-             <%@ include file="../header_admin.jsp" %>
+             <%@ include file="../header_school.jsp" %>
 
             <h1>Edit Crew</h1>
             <div class="form-container">

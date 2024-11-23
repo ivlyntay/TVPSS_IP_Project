@@ -11,8 +11,8 @@
         <li><a href="../user/userList.jsp"><i class="bi bi-border-all"></i> User Management</a></li>
         <li><a href="#"><i class="bi bi-journal-text"></i> Content Management</a></li>
         <li><a href="#"><i class="bi bi-bar-chart"></i> Program Status Management</a></li>
-        <li class="active"><a href="../crew/crewList.jsp"><i class="bi bi-people"></i> Crew Management</a></li>
-        <li><a href="../profile/profile_tvpss.jsp"><i class="bi bi-person"></i> Profile</a></li>
+        <li><a href="../crew/crewList.jsp"><i class="bi bi-people"></i> Crew Management</a></li>
+        <li class="active"><a href="../profile/profile_tvpss.jsp"><i class="bi bi-person"></i> Profile</a></li>
         <li><a href="../setting/setting_tvpss.jsp"><i class="bi bi-gear"></i> Settings</a></li>
         <li class="separator"></li>
         <li class="logout"><a href="#"><i class="bi bi-box-arrow-right"></i> Logout</a></li>

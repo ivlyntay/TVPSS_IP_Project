@@ -14,7 +14,7 @@
         <%@ include file="sidebar.jsp" %>
         <main class="content">
             <!-- Header Section -->
-            <%@ include file="../header_admin.jsp" %>
+            <%@ include file="../header_school.jsp" %>
 
             <!-- View Crew Profile Section -->
             <h1>View Crew Profile</h1>
