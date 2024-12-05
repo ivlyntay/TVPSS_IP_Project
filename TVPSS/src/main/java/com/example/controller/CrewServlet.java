@@ -23,13 +23,11 @@ public class CrewServlet extends HttpServlet {
 
     // In-memory crew list
     private List<CrewMember> crewList;
-    private static int idCounter = 3; // Start ID counter after sample data
+    private static int idCounter = 0; // Start ID counter after sample data
 
     @Override
     public void init() throws ServletException {
         crewList = new ArrayList<>();
-        crewList.add(new CrewMember(1, "John Doe", "Reporter", "johndoe@example.com", "0123456789", "Male", "900101123456", "default.jpg"));
-        crewList.add(new CrewMember(2, "Jane Smith", "Camera Operator", "janesmith@example.com", "0111234567", "Female", "890202654321", "default.jpg"));
 
         // Store the crewList in session for persistence
         getServletContext().setAttribute("crewList", crewList);
@@ -82,8 +80,14 @@ public class CrewServlet extends HttpServlet {
 
     private void listCrew(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        crewList = (List<CrewMember>) getServletContext().getAttribute("crewList");
+    		List<CrewMember> crewList = (List<CrewMember>) getServletContext().getAttribute("crewList");
+        
+        // If crewList is not initialized, initialize it
+        if (crewList == null) {
+            crewList = new ArrayList<>();
+        }
 
+        // Add the list to the request attributes for use in JSP
         request.setAttribute("crewList", crewList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("crewList.jsp");
         dispatcher.forward(request, response);
@@ -98,6 +102,7 @@ public class CrewServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_NOT_FOUND, "Crew Member not found");
             return;
         }
+        System.out.println("Crew Member: " + crew);
         // Set the crew member as an attribute for the view page
         request.setAttribute("crew", crew);
 
@@ -210,6 +215,10 @@ public class CrewServlet extends HttpServlet {
     }
 
     private CrewMember findCrewById(int id) {
+    	if (crewList == null) {
+            // Log an error or handle the case where the crewList is null
+            return null;
+        }
         return crewList.stream().filter(crew -> crew.getId() == id).findFirst().orElse(null);
     }
 

@@ -20,8 +20,7 @@
             <div class="form-container">
                 <!-- Profile Image Upload -->
                 <div class="image-upload">
-                    <img src="<%= request.getAttribute("crewImage") != null ? request.getAttribute("crewImage") : "../img/default.jpg" %>" 
-                         alt="Crew Profile" class="crew-image">
+                    <img src="../../img/crew_1.jpg" alt="Crew Profile" class="crew-image">
                     <label for="crew-photo" class="upload-label">Upload Crew Photo</label>
                     <input type="file" id="crew-photo" name="crewPhoto" style="opacity: 0" accept="img/*">
                 </div>
@@ -35,13 +34,13 @@
                         <div class="form-group">
                             <label for="fullName">Full Name (as per IC)</label>
                             <input type="text" id="fullName" name="fullName" 
-                                   value="<%= request.getAttribute("fullName") %>" 
+                                   value="Ivlyn Tay Wan Rou" 
                                    placeholder="Enter full name">
                         </div>
                         <div class="form-group">
                             <label for="icNumber">IC Number</label>
                             <input type="text" id="icNumber" name="icNumber" 
-                                   value="<%= request.getAttribute("icNumber") %>" 
+                                   value="030506040454" 
                                    placeholder="Enter IC Number">
                         </div>
 
@@ -49,13 +48,13 @@
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" id="email" name="email" 
-                                   value="<%= request.getAttribute("email") %>" 
+                                   value="ivlyn@graduate.utm.my" 
                                    placeholder="Enter email">
                         </div>
                         <div class="form-group">
                             <label for="contactNumber">Contact Number</label>
                             <input type="text" id="contactNumber" name="contactNumber" 
-                                   value="<%= request.getAttribute("contactNumber") %>" 
+                                   value="01110746482" 
                                    placeholder="Enter contact number">
                         </div>
 
