@@ -11,15 +11,15 @@ public class CrewMember {
     private String photo;  // Path to the uploaded photo
 
     // Constructor with photo path
-    public CrewMember(int id, String fullName, String role, String email, String contactNumber, String gender, String icNumber, String photo) {
+    public CrewMember(int id, String fullName,String icNumber,String email, String contactNumber,String gender, String role,String photo) {
         this.id = id;
         this.fullName = fullName;
-        this.role = role;
-        this.email = email;
-        this.contactNumber = contactNumber;
-        this.gender = gender;
-        this.icNumber = icNumber;
-        this.photo = photo;
+        this.icNumber=icNumber;
+        this.email=email;
+        this.contactNumber=contactNumber;
+        this.gender=gender;
+        this.role=role;
+        this.photo=photo;
     }
 
     public int getId() {

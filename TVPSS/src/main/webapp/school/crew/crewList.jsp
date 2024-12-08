@@ -48,6 +48,7 @@
             <table>
                 <thead>
                     <tr>
+                    	<th>Crew Id </th>
 				        <th>Crew Name</th>
 				        <th>Role</th>
 				        <th>Email</th>
@@ -58,17 +59,18 @@
                 <tbody>
                    <c:forEach var="crew" items="${crewList}">
 		                <tr>
+		                	<td>${crew.id}</td>
 				            <td>${crew.fullName}</td>
 				            <td>${crew.role}</td>
 				            <td>${crew.email}</td>
 				            <td>${crew.contactNumber}</td>
 		                    <td>
                                 <!-- View Icon -->
-                                <button class="action-btn" onclick="window.location.href='viewCrew.jsp?id=${crew.id}'">
+                                <button class="action-btn" onclick="window.location.href='CrewServlet?action=view&id=${crew.id}'">
                                     <i class="bi bi-eye"></i> <!-- View icon -->
                                 </button>
                                 <!-- Edit Icon -->
-                                <button class="action-btn" onclick="window.location.href='editCrew.jsp?id=${crew.id}'">
+                                <button class="action-btn" onclick="window.location.href='CrewServlet?action=edit&id=${crew.id}'">
                                     <i class="bi bi-pencil-square"></i> <!-- Edit icon -->
                                 </button>
                                 <!-- Delete Icon -->

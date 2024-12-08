@@ -26,21 +26,21 @@
                 </div>
 
                 <!-- Form Fields -->
-                <form action="EditCrewServlet" method="post">
-                    <input type="hidden" name="crewId" value="<%= request.getAttribute("crewId") %>">
+                <form action="CrewServlet" method="post">
+                    <input type="hidden" name="crewId" value="${crew.id}">
                     
                     <div class="form-grid">
                         <!-- Row 1 -->
                         <div class="form-group">
                             <label for="fullName">Full Name (as per IC)</label>
                             <input type="text" id="fullName" name="fullName" 
-                                   value="Ivlyn Tay Wan Rou" 
+                                   value="${crew.fullName}" 
                                    placeholder="Enter full name">
                         </div>
                         <div class="form-group">
                             <label for="icNumber">IC Number</label>
                             <input type="text" id="icNumber" name="icNumber" 
-                                   value="030506040454" 
+                                   value="${crew.icNumber}" 
                                    placeholder="Enter IC Number">
                         </div>
 
@@ -48,42 +48,42 @@
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" id="email" name="email" 
-                                   value="ivlyn@graduate.utm.my" 
+                                   value="${crew.email}" 
                                    placeholder="Enter email">
                         </div>
                         <div class="form-group">
                             <label for="contactNumber">Contact Number</label>
                             <input type="text" id="contactNumber" name="contactNumber" 
-                                   value="01110746482" 
+                                   value="${crew.contactNumber}" 
                                    placeholder="Enter contact number">
                         </div>
 
                         <!-- Row 3 -->
                         <div class="form-group">
-                            <label for="gender">Gender</label>
-                            <select id="gender" name="gender">
-                                <option value="">Select gender</option>
-                                <option value="male" <%= "male".equals(request.getAttribute("gender")) ? "selected" : "" %>>Male</option>
-                                <option value="female" <%= "female".equals(request.getAttribute("gender")) ? "selected" : "" %>>Female</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="role">Role</label>
-                            <select id="role" name="role">
-                                <option value="">Select role</option>
-                                <option value="reporter" <%= "reporter".equals(request.getAttribute("role")) ? "selected" : "" %>>Reporter</option>
-                                <option value="assistant-director" <%= "assistant-director".equals(request.getAttribute("role")) ? "selected" : "" %>>Assistant Director</option>
-                                <option value="camera-operator" <%= "camera-operator".equals(request.getAttribute("role")) ? "selected" : "" %>>Camera Operator</option>
-                                <option value="script-writer" <%= "script-writer".equals(request.getAttribute("role")) ? "selected" : "" %>>Script Writer</option>
-                                <option value="video-editor" <%= "video-editor".equals(request.getAttribute("role")) ? "selected" : "" %>>Video Editor</option>
-                            </select>
-                        </div>
-                    </div>
+						    <label for="gender">Gender</label>
+						    <select id="gender" name="gender">
+						        <option value="">Select Gender</option>
+						        <option value="male" ${crew.gender == 'male' ? 'selected' : ''}>Male</option>
+						        <option value="female" ${crew.gender == 'female' ? 'selected' : ''}>Female</option>
+						    </select>
+						</div>
+						<div class="form-group">
+						    <label for="role">Role</label>
+						    <select id="role" name="role">
+						        <option value="">Select Role</option>
+						        <option value="reporter" ${crew.role == 'reporter' ? 'selected' : ''}>Reporter</option>
+						        <option value="assistant-director" ${crew.role == 'assistant-director' ? 'selected' : ''}>Assistant Director</option>
+						        <option value="camera-operator" ${crew.role == 'camera-operator' ? 'selected' : ''}>Camera Operator</option>
+						        <option value="script-writer" ${crew.role == 'script-writer' ? 'selected' : ''}>Script Writer</option>
+						        <option value="video-editor" ${crew.role == 'video-editor' ? 'selected' : ''}>Video Editor</option>
+						    </select>
+						</div>
 
                     <!-- Form Buttons -->
                     <div class="form-buttons">
                         <button type="submit" class="btn btn-primary">Save Changes</button>
                         <button type="button" class="btn btn-secondary" onclick="window.location.href='crewList.jsp'">Cancel</button>
+                    </div>
                     </div>
                 </form>
             </div>

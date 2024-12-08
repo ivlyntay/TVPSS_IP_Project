@@ -95,22 +95,15 @@ public class CrewServlet extends HttpServlet {
 
     protected void viewCrew(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        String idParam = request.getParameter("id");
+
+        int id= Integer.parseInt(idParam);
 
         CrewMember crew = findCrewById(id);
-        if (crew == null) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Crew Member not found");
-            return;
-        }
-        System.out.println("Crew Member: " + crew);
-        // Set the crew member as an attribute for the view page
         request.setAttribute("crew", crew);
-
-        // Forward to the view page
         RequestDispatcher dispatcher = request.getRequestDispatcher("viewCrew.jsp");
         dispatcher.forward(request, response);
     }
-
 
     protected void showEditForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -132,65 +125,57 @@ public class CrewServlet extends HttpServlet {
     private void addCrew(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String fullName = request.getParameter("fullName");
-        String role = request.getParameter("role");
+        String icNumber = request.getParameter("icNumber");
         String email = request.getParameter("email");
         String contactNumber = request.getParameter("contactNumber");
         String gender = request.getParameter("gender");
-        String icNumber = request.getParameter("icNumber");
-
+        String role = request.getParameter("role");
         // Get the uploaded file
         Part filePart = request.getPart("crewPhoto");
-        String photoName = savePhoto(filePart);  // Method to handle photo upload
+        String photo = savePhoto(filePart);  // Method to handle photo upload
 
         if (!isValidEmail(email) || !isValidContact(contactNumber)) {
             throw new ServletException("Invalid email or contact number.");
         }
 
-        CrewMember newCrew = new CrewMember(generateId(), fullName, role, email, contactNumber, gender, icNumber, photoName);
+        CrewMember newCrew = new CrewMember(++idCounter, fullName, role, email, contactNumber, gender, icNumber, photo);
         crewList.add(newCrew);
 
-        // Update the crewList in the application context
         getServletContext().setAttribute("crewList", crewList);
-
         response.sendRedirect("/TVPSS/school/crew/CrewServlet?action=list");
     }
 
+
     private void updateCrew(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = parseId(request.getParameter("crewId"));
-        CrewMember crew = findCrewById(id);
-
-        if (crew == null) {
-            throw new ServletException("Crew member not found with ID: " + id);
-        }
-
+    	int crewId = Integer.parseInt(request.getParameter("crewId"));
         String fullName = request.getParameter("fullName");
-        String role = request.getParameter("role");
+        String icNumber = request.getParameter("icNumber");
         String email = request.getParameter("email");
         String contactNumber = request.getParameter("contactNumber");
         String gender = request.getParameter("gender");
-        String icNumber = request.getParameter("icNumber");
+        String role = request.getParameter("role");
+        List<CrewMember> crewList = (List<CrewMember>) getServletContext().getAttribute("crewList");
 
-        // Get the uploaded file if there is one
-        Part filePart = request.getPart("crewPhoto");
-        String photoName = filePart.getSize() > 0 ? savePhoto(filePart) : crew.getPhoto();
-
-        if (!isValidEmail(email) || !isValidContact(contactNumber)) {
-            throw new ServletException("Invalid email or contact number.");
+     // Find the crew member to update
+        for (CrewMember crew : crewList) {
+            if (crew.getId() == crewId) {
+                // Update the crew member's details
+                crew.setFullName(fullName);
+                crew.setIcNumber(icNumber);
+                crew.setEmail(email);
+                crew.setContactNumber(contactNumber);
+                crew.setGender(gender);
+                crew.setRole(role);
+                break;
+            }
         }
 
-        crew.setFullName(fullName);
-        crew.setRole(role);
-        crew.setEmail(email);
-        crew.setContactNumber(contactNumber);
-        crew.setGender(gender);
-        crew.setIcNumber(icNumber);
-        crew.setPhoto(photoName);
-
-        // Update the crewList in the application context
+        // Save the updated list back to the application context
         getServletContext().setAttribute("crewList", crewList);
 
-        response.sendRedirect("/TVPSS/school/crew/CrewServlet?action=list");
+        // Redirect to the crew list page
+        response.sendRedirect("crewList.jsp");
     }
 
     protected void deleteCrew(HttpServletRequest request, HttpServletResponse response)
@@ -215,23 +200,17 @@ public class CrewServlet extends HttpServlet {
     }
 
     private CrewMember findCrewById(int id) {
-    	if (crewList == null) {
-            // Log an error or handle the case where the crewList is null
-            return null;
+        List<CrewMember> crewList = (List<CrewMember>) getServletContext().getAttribute("crewList");
+        if (crewList != null) {
+            for (CrewMember crew : crewList) {
+                if (crew.getId() == id) {
+                    System.out.println("Found Crew: " + crew.getFullName());
+                    return crew;
+                }
+            }
         }
-        return crewList.stream().filter(crew -> crew.getId() == id).findFirst().orElse(null);
-    }
-
-    private int parseId(String idStr) throws ServletException {
-        try {
-            return Integer.parseInt(idStr);
-        } catch (NumberFormatException e) {
-            throw new ServletException("Invalid crew ID.", e);
-        }
-    }
-
-    private int generateId() {
-        return idCounter++;
+        System.out.println("Crew with ID " + id + " not found.");
+        return null;
     }
 
     private boolean isValidEmail(String email) {
