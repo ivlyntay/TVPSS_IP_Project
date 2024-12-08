@@ -37,13 +37,13 @@
                             <label for="fullName">Full Name (as per IC)</label>
                             <input type="text" id="fullName" name="fullName" placeholder="Enter full name" required>
                         </div>
-                        <div class="form-group">
+                         <div class="form-group">
                             <label for="icNumber">IC Number</label>
                             <input type="text" id="icNumber" name="icNumber" placeholder="Enter IC Number" required>
                         </div>
 
                         <!-- Row 2 -->
-                        <div class="form-group">
+                    <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" id="email" name="email" placeholder="Enter email" required>
                         </div>
@@ -53,7 +53,7 @@
                         </div>
 
                         <!-- Row 3 -->
-                        <div class="form-group">
+                       <div class="form-group">
                             <label for="gender">Gender</label>
                             <select id="gender" name="gender" required>
                                 <option value="">Select gender</option>

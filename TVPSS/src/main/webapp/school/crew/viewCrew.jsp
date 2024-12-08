@@ -22,32 +22,32 @@
                 <div class="form-container">
                     <div class="image-upload">
                         <!-- Display crew member's profile photo -->
-                        <img src="../../img/crew_1.jpg" alt="Crew Profile" class="crew-image">
-                        <h2>Ivlyn Tay Wan Rou</h2>
+                       <img src="../../img/crew_1.jpg" alt="${crew.fullName} Profile" class="crew-image">
+            			<h2>${crew.fullName}</h2>
                     </div>
-                    <div class="profile-details">
+                   <div class="profile-details">
                         <table>
                             <tr>
                                 <td>IC Number:</td>
-                                <td>030506040454</td>
+                                <td>${crew.icNumber}</td>
                             </tr>
                             <tr>
                                 <td>Email:</td>
-                                <td>ivlyn@graduate.utm.my</td>
+                                <td>${crew.email}</td>
                             </tr>
                             <tr>
                                 <td>Contact Number:</td>
-                                <td>01110746482</td>
+                                <td>${crew.contactNumber}</td>
                             </tr>
                             <tr>
                                 <td>Gender:</td>
-                                <td>Female</td>
+                                <td>${crew.gender}</td>
                             </tr>
                             <tr>
                                 <td>Role:</td>
-                                <td>Video Editor</td>
+                                <td>${crew.role}</td>
                             </tr>
-                        </table>
+                        </table> 
                     </div>
                     <div class="form-buttons">
                         <button type="button" class="btn btn-primary" onclick="window.location.href='crewList.jsp'">Back</button>
