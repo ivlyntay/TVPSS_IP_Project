@@ -83,12 +83,12 @@
 								<td>
 									<!-- View Icon -->
 									<button class="action-btn"
-										onclick="window.location.href='UserServlet?action=view&id=${user.id}'">
+										onclick="window.location.href='viewUser.jsp?id=${user.id}'">
 										<i class="bi bi-eye"></i>
 										<!-- View icon -->
 									</button> <!-- Edit Icon -->
 									<button class="action-btn"
-										onclick="window.location.href='UserServlet?action=edit&id=${user.id}'">
+										onclick="window.location.href='editUser.jsp?id=${user.id}'">
 										<i class="bi bi-pencil-square"></i>
 										<!-- Edit icon -->
 									</button> <!-- Delete Icon -->
