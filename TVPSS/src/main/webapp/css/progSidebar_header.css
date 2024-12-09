@@ -1,0 +1,159 @@
+/* Reset Styles */
+*,
+body, h1, h2, h3, ul, li, p, table, th, td {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+     font-family: Arial, sans-serif;
+    background: #f9f9f9;
+    color: #333;
+}
+
+/* Layout Styling */
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 240px;
+    background: #FFFFFF;
+    color: #202224;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    height: 100vh;
+    border-right: 1px solid #ddd;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.logo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.menu {
+    list-style: none;
+}
+
+.menu li {
+    margin-bottom: 15px;
+}
+
+.menu li a {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-radius: 8px;
+    color: #202224;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.menu li a i {
+    margin-right: 12px;
+    font-size: 1.2rem;
+    color: inherit;
+}
+
+.menu .active a {
+    background-color: #4880FF;
+    color: #FFFFFF;
+}
+
+.menu a:hover:not(.active) {
+    background-color: #979797;
+    color: white;
+}
+
+.menu .separator {
+    border-top: 1px solid #ccc;
+    margin: 10px 0;
+}
+
+.menu .logout a {
+    color: red;
+    font-weight: bold;
+}
+
+.menu .logout a:hover {
+    background-color: #ffcccc;
+    color: darkred;
+}
+
+/* Content Section */
+.content {
+    flex: 1;
+    padding: 20px;
+    background: #F5F6FA;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Header Styling */
+.header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #FFFFFF;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* Search Bar */
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+.header-search-bar {
+    padding: 10px 10px 10px 30px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 250px;
+    background: #FFFFFF;
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: #888;
+}
+
+.header-search-bar:focus {
+    outline: none;
+    border-color: #4880FF;
+    box-shadow: 0px 0px 5px rgba(72, 128, 255, 0.5);
+}
