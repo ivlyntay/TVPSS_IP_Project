@@ -21,7 +21,7 @@
                 <div class="form-container">
                     <div class="image-upload">
                         <img src="../../img/default.jpg" alt="Crew Profile" class="crew-image">
-                        <h2>Christine Brooks</h2>
+                        <h2>Ivlyn Tay Wan Rou</h2>
                     </div>
                     <div class="profile-details">
 				    <table>
@@ -31,15 +31,15 @@
 				        </tr>
 				        <tr>
 				            <td>IC Number:</td>
-				            <td>031214100312</td>
+				            <td>030506040454</td>
 				        </tr>
 				        <tr>
 				            <td>Email:</td>
-				            <td>christine@gmail.com</td>
+				            <td>ivlyn@graduate.utm.my</td>
 				        </tr>
 				        <tr>
 				            <td>Contact Number:</td>
-				            <td>011-10746752</td>
+				            <td>011-10746482</td>
 				        </tr>
 				        <tr>
 				            <td>Gender:</td>
@@ -47,7 +47,7 @@
 				        </tr>
 				        <tr>
 				            <td>Role:</td>
-				            <td>Reporter</td>
+				            <td>Script-Writer</td>
 				        </tr>
 				    </table>
 				</div>

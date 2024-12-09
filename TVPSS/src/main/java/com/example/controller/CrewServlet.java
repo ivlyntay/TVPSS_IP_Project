@@ -130,15 +130,12 @@ public class CrewServlet extends HttpServlet {
         String contactNumber = request.getParameter("contactNumber");
         String gender = request.getParameter("gender");
         String role = request.getParameter("role");
-        // Get the uploaded file
-        Part filePart = request.getPart("crewPhoto");
-        String photo = savePhoto(filePart);  // Method to handle photo upload
 
         if (!isValidEmail(email) || !isValidContact(contactNumber)) {
             throw new ServletException("Invalid email or contact number.");
         }
 
-        CrewMember newCrew = new CrewMember(++idCounter, fullName, role, email, contactNumber, gender, icNumber, photo);
+        CrewMember newCrew = new CrewMember(++idCounter, fullName, icNumber, email, contactNumber, gender, role);
         crewList.add(newCrew);
 
         getServletContext().setAttribute("crewList", crewList);
