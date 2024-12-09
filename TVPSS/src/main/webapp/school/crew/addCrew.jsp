@@ -6,7 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New Crew</title>
-    <link rel="stylesheet" href="../../css/styles.css?v=2">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css?v=2">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
@@ -36,13 +37,13 @@
                             <label for="fullName">Full Name (as per IC)</label>
                             <input type="text" id="fullName" name="fullName" placeholder="Enter full name" required>
                         </div>
-                        <div class="form-group">
+                         <div class="form-group">
                             <label for="icNumber">IC Number</label>
                             <input type="text" id="icNumber" name="icNumber" placeholder="Enter IC Number" required>
                         </div>
 
                         <!-- Row 2 -->
-                        <div class="form-group">
+                    <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" id="email" name="email" placeholder="Enter email" required>
                         </div>
@@ -52,7 +53,7 @@
                         </div>
 
                         <!-- Row 3 -->
-                        <div class="form-group">
+                       <div class="form-group">
                             <label for="gender">Gender</label>
                             <select id="gender" name="gender" required>
                                 <option value="">Select gender</option>
