@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.model.CrewMember;
 import com.example.model.User;
 
 import java.io.*;
@@ -9,6 +10,7 @@ import java.util.List;
 import javax.servlet.*;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
+
 @WebServlet("/UserServlet")
 @MultipartConfig
 public class UserServlet extends HttpServlet {
@@ -16,13 +18,11 @@ public class UserServlet extends HttpServlet {
 
     // In-memory user list
     private List<User> userList;
-    private static int idCounter = 3; // Start ID counter after sample data
+    private static int idCounter = 0; 
 
     @Override
     public void init() throws ServletException {
         userList = new ArrayList<>();
-        userList.add(new User(1, "Christine Brooks", "751024040130", "SMK Bandar Kota Tinggi", "Kota Tinggi", "christine@gmail.com", "0123456789", "https://www.youtube.com/@TVPSSFIVEONE", "TVPSS FiveOne Studio", "default.jpg"));
-        userList.add(new User(2, "Jane Smith", "890202654321", "SMK ND", "Johor Bahru", "janesmith@example.com", "0111234567", "https://www.youtube.com/@TVPSSFIVEONE", "TVPSS FiveOne Studio", "default.jpg"));
 
         // Store the userList in session for persistence
         getServletContext().setAttribute("userList", userList);
@@ -75,22 +75,23 @@ public class UserServlet extends HttpServlet {
 
     private void listUsers(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	userList = (List<User>) getServletContext().getAttribute("userList");
-        
-    	request.setAttribute("userList", userList);
+        List <User> userList = (List<User>) getServletContext().getAttribute("userList");
+
+        // If userList is not initialized, initialize it
+        if (userList == null) {
+            userList = new ArrayList<>();
+        }
+
+        request.setAttribute("userList", userList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("userList.jsp");
         dispatcher.forward(request, response);
     }
 
-    protected void viewUser(HttpServletRequest request, HttpServletResponse response)
+    private void viewUser(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        List<User> userList =(List<User>) getServletContext().getAttribute("userList");
+        
         User user = findUserById(id);
-        if (user == null) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND, "User not found");
-            return;
-        }
         request.setAttribute("user", user);
         RequestDispatcher dispatcher = request.getRequestDispatcher("viewUser.jsp");
         dispatcher.forward(request, response);
@@ -99,13 +100,13 @@ public class UserServlet extends HttpServlet {
     private void showEditForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        List<User> userList =(List<User>) getServletContext().getAttribute("userList");
-        User user = findUserById(id);
-        if (user == null) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND, "User not found");
-            return;
-        }
+        List <User> userList = (List<User>) getServletContext().getAttribute("userList");
+        
+     // Find the user  by ID
+        User user = userList.stream().filter(c -> c.getId() == id).findFirst().orElse(null);
+        
         request.setAttribute("user", user);
+        
         RequestDispatcher dispatcher = request.getRequestDispatcher("editUser.jsp");
         dispatcher.forward(request, response);
     }
@@ -123,29 +124,26 @@ public class UserServlet extends HttpServlet {
 
         // Get the uploaded file
         Part filePart = request.getPart("profilePhoto");
-        String photoName = savePhoto(filePart);  // Method to handle photo upload
+        String photo = savePhoto(filePart); // Method to handle photo upload
 
         if (!isValidEmail(email) || !isValidContact(contactNumber)) {
             throw new ServletException("Invalid email or contact number.");
         }
 
-        User newUser = new User(generateId(), fullName, icNumber, schoolName, district, email, contactNumber, ytbLink, ytbName, photoName);
+        // Create the User object
+        User newUser = new User(++idCounter, fullName, icNumber, schoolName, district, email, contactNumber, ytbLink, ytbName, photo);  
         userList.add(newUser);
 
+        // Update the userList in the servlet context
         getServletContext().setAttribute("userList", userList);
 
+        // Redirect to the user list page
         response.sendRedirect("/TVPSS/admin/user/UserServlet?action=list");
     }
 
     private void updateUser(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("userId"));
-        User user = findUserById(id);
-
-        if (user == null) {
-            throw new ServletException("User not found with ID: " + id);
-        }
-
         String fullName = request.getParameter("fullName");
         String icNumber = request.getParameter("icNumber");
         String schoolName = request.getParameter("schoolName");
@@ -156,49 +154,59 @@ public class UserServlet extends HttpServlet {
         String ytbLink = request.getParameter("ytbLink");
         String ytbName = request.getParameter("ytbName");
 
-        Part filePart = request.getPart("profilePhoto");
-        String photoName = filePart.getSize() > 0 ? savePhoto(filePart) : user.getPhoto();
+//        Part filePart = request.getPart("profilePhoto");
+//        String photoName = filePart.getSize() > 0 ? savePhoto(filePart) : user.getPhoto();
+        
+        List <User> userList = (List<User>) getServletContext().getAttribute("userList");
+        
+        for (User user : userList) {
+            if (user.getId() == id) {
 
-        if (!isValidEmail(email) || !isValidContact(contactNumber)) {
-            throw new ServletException("Invalid email or contact number.");
+	        user.setFullName(fullName);
+	        user.setIcNumber(icNumber);
+	        user.setSchoolName(schoolName);
+	        user.setDistrict(district);
+	        user.setEmail(email);
+	        user.setContactNumber(contactNumber);
+	        user.setPassword(password);
+	        user.setYoutubeLink(ytbLink);
+	        user.setYoutubeChannelName(ytbName);
+//	        user.setPhoto(photoName);
+	        break;
+            }
         }
-
-        user.setFullName(fullName);
-        user.setIcNumber(icNumber);
-        user.setSchoolName(schoolName);
-        user.setDistrict(district);
-        user.setEmail(email);
-        user.setContactNumber(contactNumber);
-        user.setPassword(password);
-        user.setYoutubeLink(ytbLink);
-        user.setYoutubeChannelName(ytbName);
-        user.setPhoto(photoName);
-
         getServletContext().setAttribute("userList", userList);
 
-        response.sendRedirect("/TVPSS/admin/user/UserServlet?action=list");
+        response.sendRedirect("userList.jsp");
     }
 
     private void deleteUser(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        List<User> userList =(List<User>) getServletContext().getAttribute("userList");
+        List <User> userList = (List<User>) getServletContext().getAttribute("userList");
+        
         userList.removeIf(u -> u.getId() == id);
+        
         getServletContext().setAttribute("userList", userList);
         response.sendRedirect("userList.jsp?action=list");
     }
 
-    private void cancelAdd(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
+    private void cancelAdd(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.sendRedirect("/TVPSS/admin/user/UserServlet?action=list");
     }
 
     private User findUserById(int id) {
-        return userList.stream().filter(user -> user.getId() == id).findFirst().orElse(null);
-    }
-
-    private int generateId() {
-        return idCounter++;
+    	List <User> userList = (List<User>) getServletContext().getAttribute("userList");
+    	if (userList != null) {
+            for (User user : userList) {
+                if (user.getId() == id) {
+                    System.out.println("Found User: " + user.getFullName());
+                    return user;
+                }
+            }
+        }
+        System.out.println("User with ID " + id + " not found.");
+        return null;
     }
 
     private boolean isValidEmail(String email) {

@@ -25,7 +25,7 @@
                 <!-- Profile Image Upload -->
                 <div class="image-upload">
                     <div class="image-circle">
-                        <img src="../../img/profile.png" alt="<%= user.getFullName() %>">
+                        <img src="../../img/profile.png" alt="${user.fullName}">
                     </div>
                 </div>
 
@@ -35,31 +35,31 @@
                         <!-- Row 1 -->
                         <div class="form-group">
                             <label for="fullName">Admin Name (as per IC)</label>
-                            <input type="text" id="fullName" name="fullName" value="<%= user.getFullName() %>" readonly>
+                            <input type="text" id="fullName" name="fullName" value="${user.fullName}" readonly>
                         </div>
                         <div class="form-group">
                             <label for="icNumber">IC Number</label>
-                            <input type="text" id="icNumber" name="icNumber" value="<%= user.getIcNumber() %>" readonly>
+                            <input type="text" id="icNumber" name="icNumber" value="${user.icNumber}" readonly>
                         </div>
                         
                         <!-- Row 2 -->
                         <div class="form-group">
                             <label for="schoolName">School Name</label>
-                            <input type="text" id="schoolName" name="schoolName" value="<%= user.getSchoolName() %>" readonly>
+                            <input type="text" id="schoolName" name="schoolName" value="${user.schoolName}" readonly>
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" name="email" value="<%= user.getEmail() %>" readonly>
+                            <input type="email" id="email" name="email" value="${user.email}" readonly>
                         </div>
                         
                         <!-- Row 3 -->
                         <div class="form-group">
                             <label for="contactNumber">Contact Number</label>
-                            <input type="text" id="contactNumber" name="contactNumber" value="<%= user.getContactNumber() %>" readonly>
+                            <input type="text" id="contactNumber" name="contactNumber" value="${user.contactNumber}" readonly>
                         </div>
                         <div class="form-group">
                             <label for="district">District</label>
-                            <input type="text" id="district" name="district" value="<%= user.getDistrict() %>" readonly>
+                            <input type="text" id="district" name="district" value="${user.district}" readonly>
                         </div>
                         
                         <!-- Row 4 -->
