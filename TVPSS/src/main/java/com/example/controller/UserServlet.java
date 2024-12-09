@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import com.example.model.CrewMember;
 import com.example.model.User;
 
 import java.io.*;
@@ -89,7 +88,9 @@ public class UserServlet extends HttpServlet {
 
     private void viewUser(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+    	String idParam = request.getParameter("id");
+
+        int id= Integer.parseInt(idParam);
         
         User user = findUserById(id);
         request.setAttribute("user", user);
