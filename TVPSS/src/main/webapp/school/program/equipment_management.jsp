@@ -14,7 +14,7 @@
             <%@ include file="../header_school.jsp" %>
             <div class="program-header">
                 <h2>Equipment Management</h2>
-                <button class="back-btn">Back</button>
+                <button class="back-btn" onclick="window.location.href='ProgramStatus.jsp'">Back</button>
             </div>
             
             <div class="cards-container">

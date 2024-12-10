@@ -139,7 +139,7 @@
 
                         <div class="button-container">
                             <button type="submit" class="save-btn">Save</button>
-                            <button type="button" class="next-btn">Next</button>
+                            <button type="button" class="next-btn" onclick="window.location.href='equipment_management.jsp'">Next</button>
                         </div>
                     </form>
                 </div>
@@ -155,6 +155,7 @@
         console.log('Form data:', data);
         // Here you would typically send the data to your backend
         alert('Form saved successfully!');
-    });</script>
+    });
+    </script>
 </body>
 </html>
