@@ -79,8 +79,7 @@
 								<td>SMK Johor</td>
 								<td>Johor Bahru</td>
 								<td><a href="https://www.youtube.com/@tvpsssktkk" target="_blank">TVPSS SKTKK (KK STUDIO)</a></td>
-
-								<td>
+								
 						<%-- <c:forEach var="user" items="${userList}">
 							<tr>
 								<td>${user.id}</td>
@@ -89,6 +88,7 @@
 								<td>${user.district}</td>
 								<td>${user.formattedYoutubeLink}"</td>
 								<td> --%>
+								<td>
 									<!-- View Icon -->
 									<button class="action-btn"
 										onclick="window.location.href='UserServlet?action=view&id=${user.id}'">
