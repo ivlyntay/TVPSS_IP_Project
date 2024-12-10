@@ -59,7 +59,7 @@
 					<div class="form-buttons">
 						<button type="submit" class="btn btn-primary">Save Changes</button>
 						<button type="button" class="btn btn-secondary"
-							onclick="window.location.href='profile.jsp'">Cancel</button>
+							onclick="window.location.href='profile_tvpss.jsp'">Cancel</button>
 					</div>
 				</form>
 			</div>

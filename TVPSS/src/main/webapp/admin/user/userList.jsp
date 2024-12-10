@@ -40,22 +40,22 @@
 					</div>
 					<select class="filter-dropdown">
 						<option value="">District</option>
-						<option value="ledang">Ledang</option>
-						<option value="segamat">Segamat</option>
-						<option value="muar">Muar</option>
-						<option value="batupahat">Batu Pahat</option>
-						<option value="kluang">Kluang</option>
-						<option value="mersing">Mersing</option>
-						<option value="pontian">Pontian</option>
-						<option value="kulaijaya">Kulai Jaya</option>
-						<option value="kotatinggi">Kota Tinggi</option>
-						<option value="johorbahru">Johor Bahru</option>
+						<option value="Ledang">Ledang</option>
+						<option value="Segamat">Segamat</option>
+						<option value="Muar">Muar</option>
+						<option value="Batu Pahat">Batu Pahat</option>
+						<option value="Kluang">Kluang</option>
+						<option value="Mersing">Mersing</option>
+						<option value="Pontian">Pontian</option>
+						<option value="Kulai Jaya">Kulai Jaya</option>
+						<option value="Kotat Tnggi">Kota Tinggi</option>
+						<option value="Johor Bahru">Johor Bahru</option>
 					</select>
 					<button class="reset-button">
 						<i class="bi bi-arrow-clockwise"></i> Reset Filter
 					</button>
-					<button class="btn btn-primary add-user-button"
-						onclick="window.location.href='addUser.jsp'">Add User</button>
+					<!-- <button class="btn btn-primary add-user-button"
+						onclick="window.location.href='addUser.jsp'">Add User</button> -->
 				</div>
 			</section>
 
@@ -73,25 +73,29 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="user" items="${userList}">
+							<tr>
+								<td>1</td>
+								<td>Tan Yun Xi</td>
+								<td>SMK Johor</td>
+								<td>Johor Bahru</td>
+								<td><a href="https://www.youtube.com/@tvpsssktkk" target="_blank">TVPSS SKTKK (KK STUDIO)</a></td>
+
+								<td>
+						<%-- <c:forEach var="user" items="${userList}">
 							<tr>
 								<td>${user.id}</td>
 								<td>${user.fullName}</td>
 								<td>${user.schoolName}</td>
 								<td>${user.district}</td>
 								<td>${user.formattedYoutubeLink}"</td>
-								<td>
+								<td> --%>
 									<!-- View Icon -->
 									<button class="action-btn"
 										onclick="window.location.href='UserServlet?action=view&id=${user.id}'">
 										<i class="bi bi-eye"></i>
 										<!-- View icon -->
-									</button> <!-- Edit Icon -->
-									<button class="action-btn"
-										onclick="window.location.href='UserServlet?action=edit&id=${user.id}'">
-										<i class="bi bi-pencil-square"></i>
-										<!-- Edit icon -->
-									</button> <!-- Delete Icon -->
+									</button> 
+								<!-- Delete Icon -->
 									<button class="action-btn"
 										onclick="return confirm('Are you sure you want to delete this user?')">
 										<i class="bi bi-trash"></i>
@@ -99,7 +103,7 @@
 									</button>
 								</td>
 							</tr>
-						</c:forEach>
+						<%-- </c:forEach> --%>
 					</tbody>
 				</table>
 

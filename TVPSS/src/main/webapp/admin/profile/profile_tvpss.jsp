@@ -19,7 +19,7 @@
 
 		<!-- Main Content -->
 		<main class="content">
-			  
+			  <%@ include file="../header_tvpss.jsp" %>
 			<h1>Profile</h1>
             <div class="form-container">
                 <!-- Profile Image Upload -->

@@ -56,7 +56,8 @@
 							</tr>
 							<tr>
 								<td>Youtube Channel:</td>
-								<td>${user.formattedYoutubeLink}</td>
+								<td><a href="https://www.youtube.com/@tvpsssktkk" target="_blank">TVPSS SKTKK (KK STUDIO)</a></td>
+								<%-- <td>${user.formattedYoutubeLink}</td> --%>
 								
 							</tr>
 						</table>
