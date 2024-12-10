@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Crew Profile</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/crew.css">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
