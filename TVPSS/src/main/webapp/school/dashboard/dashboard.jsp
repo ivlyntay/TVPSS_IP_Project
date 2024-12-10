@@ -37,15 +37,17 @@
         
         .logo {
             display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px;
-            margin-bottom: 30px;
-            font-weight: 500;
+		    align-items: center;
+		    gap: 10px;
+		    font-size: 1.5rem;
+		    font-weight: bold;
+		    margin-bottom: 20px;
         }
         
         .logo img {
-            height: 24px;
+            width: 40px;
+		    height: 40px;
+		    border-radius: 50%;
         }
         
         .nav-item {
