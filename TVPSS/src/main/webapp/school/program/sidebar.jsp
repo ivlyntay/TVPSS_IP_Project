@@ -7,7 +7,7 @@
         TVPSS 7G
     </div>
     <ul class="menu">
-        <li><a href="#"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+        <li><a href="../dashboard/dashboard.jsp"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
         <li><a href="#"><i class="bi bi-journal-text"></i> Content Management</a></li>
         <li class="active"><a href="../program/ProgramStatus.jsp"><i class="bi bi-bar-chart"></i> Program Status Management</a></li>
         <li><a href="../crew/crewList.jsp"><i class="bi bi-people"></i> Crew Management</a></li>
