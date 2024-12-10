@@ -95,6 +95,10 @@ input[type="text"] {
     margin-left: auto;
 }
 
+.next-btn:hover {
+    background-color: #3367d6;
+}
+
 h2 {
     margin-bottom: 20px;
     color: #333;
