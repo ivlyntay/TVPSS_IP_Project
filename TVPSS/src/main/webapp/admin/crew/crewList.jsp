@@ -66,10 +66,10 @@
                 <tbody>
 		                <tr>
 		                <td>SMK  Bandar Kota Tinggi</td>
-                        <td>Christine  Brooks</td>
-                        <td>Reporter</td>
-                        <td>christine@gmail.com</td>
-                        <td>011-10746752</td>
+                        <td>Ivlyn Tay Wan Rou</td>
+                        <td>Script-Writer</td>
+                        <td>ivlyn@graduate.utm.my</td>
+                        <td>011-10746482</td>
                         <td>
                                 <!-- View Icon -->
                                 <button class="action-btn" onclick="window.location.href='viewCrew.jsp?id=${crew.id}'">

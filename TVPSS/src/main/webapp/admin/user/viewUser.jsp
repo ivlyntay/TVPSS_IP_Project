@@ -20,43 +20,44 @@
 			<%@ include file="../header_tvpss.jsp"%>
 
 			<!-- View User Profile Section -->
-			<h1>User List&nbsp;&nbsp;>&nbsp;&nbsp;Christine Brooks</h1>
+			<h1>User List&nbsp;&nbsp;>&nbsp;&nbsp;${user.fullName}</h1>
 
 			<section class="view-crew-profile">
 				<div class="form-container">
 					<div class="profile-details">
 						<div class="image-upload">
-							<img src="../../img/default.jpg" alt="Crew Profile"
+							<img src="../../img/default.jpg" alt="User Profile"
 								class="crew-image">
 						</div>
 						<table>
 							<tr>
 								<td>Admin Name:</td>
-								<td>Christine Brooks</td>
+								<td>${user.fullName}</td>
 							</tr>
 							<tr>
 								<td>IC Number:</td>
-								<td>751024040130</td>
+								<td>${user.icNumber}</td>
 							</tr>
 							<tr>
 								<td>School Name:</td>
-								<td>SMK Bandar Kota Tinggi</td>
+								<td>${user.schoolName}</td>
 							</tr>
 							<tr>
 								<td>District:</td>
-								<td>Kota Tinggi</td>
+								<td>${user.district}</td>
 							</tr>
 							<tr>
 								<td>Email:</td>
-								<td>christine@gmail.com</td>
+								<td>${user.email}</td>
 							</tr>
 							<tr>
 								<td>Contact Number:</td>
-								<td>0123456789</td>
+								<td>${user.contactNumber}</td>
 							</tr>
 							<tr>
 								<td>Youtube Channel:</td>
-								<td>TVPSS FiveOne Studio</td>
+								<td>${user.formattedYoutubeLink}</td>
+								
 							</tr>
 						</table>
 					</div>					

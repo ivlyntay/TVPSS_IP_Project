@@ -11,7 +11,7 @@ public class CrewMember {
     private String photo;  // Path to the uploaded photo
 
     // Constructor with photo path
-    public CrewMember(int id, String fullName,String icNumber,String email, String contactNumber,String gender, String role,String photo) {
+    public CrewMember(int id, String fullName,String icNumber,String email, String contactNumber,String gender, String role) {
         this.id = id;
         this.fullName = fullName;
         this.icNumber=icNumber;
@@ -19,7 +19,7 @@ public class CrewMember {
         this.contactNumber=contactNumber;
         this.gender=gender;
         this.role=role;
-        this.photo=photo;
+        
     }
 
     public int getId() {
