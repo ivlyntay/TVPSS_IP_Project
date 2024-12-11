@@ -33,22 +33,23 @@
                             <i class="bi bi-funnel"></i>
                             Filter By
                         </span>
-                        <select class="filter-dropdown">
-                            <option value="">Status Version</option>
-                            <option value="1">Version 1</option>
-                            <option value="2">Version 2</option>
-                        </select>
-                        <select class="filter-dropdown">
-                            <option value="">Equipment Level</option>
-                            <option value="1">Level 1</option>
-                            <option value="2">Level 2</option>
-                            <option value="3">Level 3</option>
-                        </select>
-                        <select class="filter-dropdown">
-                            <option value="">Last Edited</option>
-                            <option value="newest">Newest</option>
-                            <option value="oldest">Oldest</option>
-                        </select>
+                        <select class="filter-dropdown" name="statusVersion">
+    						<option value="">Status Version</option>
+    						<option value="Version 1">Version 1</option>
+    						<option value="Version 2">Version 2</option>
+						</select>
+						<select class="filter-dropdown" name="equipmentLevel">
+						    <option value="">Equipment Level</option>
+						    <option value="Level 1">Level 1</option>
+						    <option value="Level 2">Level 2</option>
+						    <option value="Level 3">Level 3</option>
+						</select>
+						<select class="filter-dropdown" name="lastEdited">
+						    <option value="">Last Edited</option>
+						    <option value="newest">Newest</option>
+						    <option value="oldest">Oldest</option>
+						</select>
+
                         <button class="reset-button">
                             <i class="bi bi-arrow-counterclockwise"></i>
                             Reset Filter
@@ -121,39 +122,120 @@
     </div>
 
     <script>
-        function openEditModal(schoolName, version, level) {
-            const modal = document.getElementById('editModal');
-            const schoolNameInput = document.getElementById('schoolName');
-            const statusVersionSelect = document.getElementById('statusVersion');
-            const equipmentLevelSelect = document.getElementById('equipmentLevel');
+	    // Search Functionality
+	    document.querySelector('.search-bar').addEventListener('input', function () {
+	        const searchValue = this.value.toLowerCase();
+	        const rows = document.querySelectorAll('.status-table tbody tr');
+	        
+	        rows.forEach(row => {
+	            const schoolName = row.cells[0].textContent.toLowerCase();
+	            row.style.display = schoolName.includes(searchValue) ? '' : 'none';
+	        });
+	    });
+	
+	    // Filter Functionality
+	    document.querySelectorAll('.filter-dropdown').forEach(filter => {
+	        filter.addEventListener('change', applyFilters);
+	    });
+	
+	    function applyFilters() {
+	        const versionFilter = document.querySelector('select[name="statusVersion"]').value;
+	        const levelFilter = document.querySelector('select[name="equipmentLevel"]').value;
+	        const dateFilter = document.querySelector('select[name="lastEdited"]').value;
+	
+	        const rows = document.querySelectorAll('.status-table tbody tr');
+	
+	        rows.forEach(row => {
+	            const version = row.cells[1].textContent;
+	            const level = row.cells[2].textContent;
+	            const lastEdited = row.cells[3].textContent;
+	
+	            let show = true;
+	
+	            if (versionFilter && version !== versionFilter) show = false;
+	            if (levelFilter && level !== levelFilter) show = false;
+	            if (dateFilter === 'newest') {
+	                show = [...rows].sort((a, b) => new Date(b.cells[3].textContent) - new Date(a.cells[3].textContent));
+	            } else if (dateFilter === 'oldest') {
+	                show = [...rows].sort((a, b) => new Date(a.cells[3].textContent) - new Date(b.cells[3].textContent));
+	            }
+	
+	            row.style.display = show ? '' : 'none';
+	        });
+	    }
+	
+	    // Reset Functionality
+	    document.querySelector('.reset-button').addEventListener('click', function () {
+	        document.querySelector('.search-bar').value = '';
+	        document.querySelectorAll('.filter-dropdown').forEach(filter => filter.value = '');
+	        const rows = document.querySelectorAll('.status-table tbody tr');
+	        rows.forEach(row => row.style.display = '');
+	    });
+	    
+	 // Open the edit modal and populate fields
+	    function openEditModal(schoolName, version, level) {
+	        const modal = document.getElementById('editModal');
+	        const schoolNameInput = document.getElementById('schoolName');
+	        const statusVersionSelect = document.getElementById('statusVersion');
+	        const equipmentLevelSelect = document.getElementById('equipmentLevel');
 
-            schoolNameInput.value = schoolName;
-            statusVersionSelect.value = version;
-            equipmentLevelSelect.value = level;
+	      	// Populate fields with current values
+	        schoolNameInput.value = schoolName;
+	        statusVersionSelect.value = version;
+	        equipmentLevelSelect.value = level;
 
-            modal.style.display = 'block';
-        }
+	        // Show the modal
+	        modal.style.display = 'block';
+	    }
 
-        function closeEditModal() {
-            const modal = document.getElementById('editModal');
-            modal.style.display = 'none';
-        }
+	    // Close the edit modal
+	    function closeEditModal() {
+	        const modal = document.getElementById('editModal');
+	        modal.style.display = 'none';
+	    }
 
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('editModal');
-            if (event.target === modal) {
-                closeEditModal();
-            }
-        }
+	 // Save the changes and update the table
+	    document.getElementById('editForm').onsubmit = function (e) {
+	        e.preventDefault();
 
-        // Handle form submission
-        document.getElementById('editForm').onsubmit = function(e) {
-            e.preventDefault();
-            // Add your form submission logic here
-            console.log('Form submitted');
-            closeEditModal();
-        }
+	        const schoolName = document.getElementById('schoolName').value;
+	        const statusVersion = document.getElementById('statusVersion').value;
+	        const equipmentLevel = document.getElementById('equipmentLevel').value;
+
+	        // Validate inputs
+	        if (!schoolName || !statusVersion || !equipmentLevel) {
+	            alert('All fields are required!');
+	            return;
+	        }
+
+	        // Get the current date in YYYY-MM-DD format
+	        const currentDate = new Date().toISOString().split('T')[0];
+
+	        // Find the matching row and update its content
+	        const rows = document.querySelectorAll('.status-table tbody tr');
+	        rows.forEach(row => {
+	            if (row.cells[0].textContent === schoolName) {
+	                row.cells[1].textContent = statusVersion; // Update Status Version
+	                row.cells[2].textContent = equipmentLevel; // Update Equipment Level
+	                row.cells[3].textContent = currentDate; // Update Last Edited Date
+	            }
+	        });
+
+	        // Close the modal after saving changes
+	        closeEditModal();
+	    };
+
+	    // Close modal when clicking outside
+	    window.onclick = function (event) {
+	        const modal = document.getElementById('editModal');
+	        if (event.target === modal) {
+	            closeEditModal();
+	        }
+	    };
+
+	    // Allow Cancel button to close the modal
+	    document.querySelector('.cancel-btn').addEventListener('click', closeEditModal);
+
     </script>
 </body>
 </html>

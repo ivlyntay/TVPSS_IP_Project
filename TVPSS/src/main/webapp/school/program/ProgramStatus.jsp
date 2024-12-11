@@ -36,7 +36,7 @@
                             </div>
                         </div>
                         <div></div>
-                        <img src="image/schoolLogo.jpg" alt="School Logo" class="school-logo">
+                        <img src="../../img/schoolLogo.jpeg" alt="School Logo" class="school-logo">
                     </div>
                 </div>
 
@@ -134,7 +134,7 @@
 
                         <div class="form-group">
                             <label>Version:</label>
-                            <span>2</span>
+                            <span>1</span>
                         </div>
 
                         <div class="button-container">
@@ -146,16 +146,66 @@
             </div>
         </div>
     </div>
-
+	<div id="confirmationModal" class="modal">
+	    <div class="modal-content">
+	        <h3>Confirm Save</h3>
+	        <p>Are you sure you want to save the changes?</p>
+	        <div class="modal-buttons">
+	            <button id="confirmBtn" class="confirm-btn">Confirm</button>
+	            <button id="cancelBtn" class="cancel-btn">Cancel</button>
+	        </div>
+	    </div>
+	</div>
+	
     <script>
-    document.getElementById('programStatusForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const formData = new FormData(this);
-        const data = Object.fromEntries(formData);
-        console.log('Form data:', data);
-        // Here you would typically send the data to your backend
-        alert('Form saved successfully!');
+    document.addEventListener('DOMContentLoaded', function () {
+        const modal = document.getElementById('confirmationModal');
+        const confirmBtn = document.getElementById('confirmBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const saveBtn = document.querySelector('.save-btn'); // Select the Save button
+        const form = document.getElementById('programStatusForm');
+
+        // Handle Save button click
+        saveBtn.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent form submission
+            modal.style.display = "block"; // Show the confirmation modal
+        });
+
+        // Handle confirm button click
+        confirmBtn.addEventListener('click', function () {
+            modal.style.display = "none"; // Hide modal
+
+            // Collect form data
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            // Calculate version number
+            let version = 1;
+            if (data.logo === "yes") version = 2;
+            if (data.studio === "yes" && data.recording === "yes") version = 3;
+            if (data.youtube === "yes" && data.collaborate === "yes" && data.greenScreen === "yes") version = 4;
+
+            // Update the version display
+            const versionSpan = document.querySelector("form .form-group span");
+            versionSpan.textContent = version;
+
+        });
+
+        // Handle cancel button click
+        cancelBtn.addEventListener('click', function () {
+            modal.style.display = "none"; // Hide modal
+        });
+
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
     });
+
+
+
     </script>
 </body>
 </html>
