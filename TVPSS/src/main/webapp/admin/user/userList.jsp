@@ -10,8 +10,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>User Management</title>
-<link rel="stylesheet" href="../../css/styles.css?v=2">
-<link rel="stylesheet" href="../../css/user.css?v=2">
+
+<link rel="stylesheet" href="../../css/crew.css?v=2">
+<link rel="stylesheet" href="../../css/sidebar_header.css">
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
 	rel="stylesheet">
