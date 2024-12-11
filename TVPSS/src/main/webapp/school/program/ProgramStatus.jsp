@@ -36,7 +36,7 @@
                             </div>
                         </div>
                         <div></div>
-                        <img src="image/schoolLogo.jpg" alt="School Logo" class="school-logo">
+                        <img src="../../img/schoolLogo.jpeg" alt="School Logo" class="school-logo">
                     </div>
                 </div>
 
