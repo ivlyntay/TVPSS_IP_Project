@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ page import="com.example.model.User"%>
+<%@ page session="true"%>
+<%
+User user = (User) session.getAttribute("user");
+if (user == null) {
+	response.sendRedirect("../../login.jsp");
+	return;
+}
+%>
 <style>
 /* Style for header */
 .header {
@@ -45,7 +53,7 @@
     <div class="profile">
         <img src="../../img/profile.png" alt="Moni Roy" class="profile-image">
         <div class="profile-details">
-            <span class="profile-name">Moni Roy</span><br>
+            <span class="profile-name"><%= user.getFullName() %></span><br>
             <span class="role">Admin</span>
         </div>
     </div>

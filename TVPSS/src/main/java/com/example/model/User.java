@@ -12,9 +12,10 @@ public class User {
 	private String ytbLink;
 	private String ytbName;
 	private String photo;
+	private String role;
 
 	public User(int id, String fullName, String icNumber, String schoolName, String district, String email,
-			String contactNumber, String password) {
+			String contactNumber, String password, String role) {
 		this.id = id;
 		this.fullName = fullName;
 		this.icNumber = icNumber;
@@ -23,6 +24,7 @@ public class User {
 		this.email = email;
 		this.contactNumber = contactNumber;
 		this.password = password;
+		this.role = role;
 	}
 
 	public User(int id, String fullName, String icNumber, String schoolName, String district, String email,
@@ -125,6 +127,9 @@ public class User {
 
 	public void setPhoto(String photo) {
 		this.photo = photo;
+	}
+	public String getRole() {
+	    return role;
 	}
 
 	// New Method to combine YouTube name and link

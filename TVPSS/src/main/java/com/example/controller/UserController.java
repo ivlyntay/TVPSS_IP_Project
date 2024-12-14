@@ -67,6 +67,7 @@ public class UserController extends HttpServlet {
         String schoolName = request.getParameter("schoolName");
         String district = request.getParameter("district");
         String contactNumber = request.getParameter("contactNumber");
+        String role = request.getParameter("role");
       
 
         if (users.containsKey(email)) {
@@ -75,7 +76,7 @@ public class UserController extends HttpServlet {
             forwardToPage(request, response, "/register.jsp");
         } else {
             // Register user
-            User newUser = new User(generateId(),fullName, icNumber, schoolName, district, email, contactNumber, password);
+            User newUser = new User(generateId(),fullName, icNumber, schoolName, district, email, contactNumber, password, role);
             users.put(email, newUser);
 
             // Store user data in session
@@ -93,9 +94,18 @@ public class UserController extends HttpServlet {
     private void handleLogin(HttpServletRequest request, HttpServletResponse response, String email, String password, HttpSession session)
             throws ServletException, IOException {
         if (users.containsKey(email) && users.get(email).getPassword().equals(password)) {
-            // Login successful
-            session.setAttribute("user", users.get(email));
-            response.sendRedirect("school/profile/profile.jsp");
+        	 // Login successful
+            User user = users.get(email);
+            session.setAttribute("user", user);
+
+            // Role-based redirection
+            if ("schoolAdmin".equals(user.getRole())) {
+                response.sendRedirect("school/dashboard/dashboard.jsp");
+            } else if ("tvpssAdmin".equals(user.getRole())) {
+                response.sendRedirect("admin/dashboard/dashboard.jsp");
+            } else {
+                response.sendRedirect("default/dashboard.jsp"); // Fallback for other roles
+            }
         } else {
             // Invalid login
             request.setAttribute("message", "Invalid username or password. Try again.");
