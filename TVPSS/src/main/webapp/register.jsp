@@ -7,8 +7,18 @@
 <head>
 <title>Create an Account</title>
 <link rel="stylesheet" href="<c:url value='/css/reg_login.css' />">
+<script>
+function toggleFields() {
+    const role = document.getElementById('role').value;
+    const schoolFields = document.getElementById('schoolFields');
 
-</head>
+    if (role === 'schoolAdmin') {
+        schoolFields.style.display = 'block';
+    } else {
+        schoolFields.style.display = 'none';
+    }
+}
+</script>
 <style>
 .login-prompt {
 	margin-top: 15px;
@@ -53,7 +63,12 @@ body {
 	position: relative;
 	z-index: 1;
 }
+
+#schoolFields {
+	display: none;
+}
 </style>
+</head>
 <body>
 	<div class="background"></div>
 	<div class="register-container">
@@ -64,30 +79,51 @@ body {
 		<h2>Create an Account</h2>
 		<br>
 		<form action="UserController" method="post" class="register-form">
-			<input type="hidden" name="action" value="register"> <label
-				for="fullName">Full Name</label> <input type="text" id="fullname"
-				name="fullname" required> <label for="icNumber">IC
-				Number</label> <input type="text" id="icNumber" name="icNumber" required>
-			<label for="schoolName">School Name</label> <input type="text"
-				id="schoolName" name="schoolName" required> <label
-				for="district">District</label> <select id="district"
-				name="district">
-				<option value="">Select District</option>
-				<option value="Ledang">Ledang</option>
-				<option value="Segamat">Segamat</option>
-				<option value="Muar">Muar</option>
-				<option value="Batu Pahat">Batu Pahat</option>
-				<option value="Kluang">Kluang</option>
-				<option value="Mersing">Mersing</option>
-				<option value="Pontian">Pontian</option>
-				<option value="Kulai Jaya">Kulai Jaya</option>
-				<option value="Kotat Tnggi">Kota Tinggi</option>
-				<option value="Johor Bahru">Johor Bahru</option>
-			</select> <label for="email">Email Address</label> <input type="text"
-				id="email" name="email" required> <label for="contactNumber">Contact
-				Number</label> <input type="text" id="contactNumber" name="contactNumber"
-				required> <label for="password">Password</label> <input
-				type="password" id="password" name="password" required>
+			<input type="hidden" name="action" value="register"> 
+			
+			<label for="fullName">Full Name</label> 
+			<input type="text" id="fullname" name="fullname" required> 
+			
+			<label for="icNumber">IC Number</label> 
+			<input type="text" id="icNumber" name="icNumber" required>
+			
+			<label for="email">Email Address</label> 
+			<input type="text" id="email" name="email" required> 
+			
+			<label for="contactNumber">Contact Number</label> 
+			<input type="text" id="contactNumber" name="contactNumber" required> 
+			
+			<label for="role">Role</label>
+			<select id="role" name="role" required onchange="toggleFields()">
+				<option value="">Select Role</option>
+				<option value="schoolAdmin">School Admin</option>
+				<option value="tvpssAdmin">TVPSS Admin</option>
+			</select>
+
+			<div id="schoolFields">
+				<label for="schoolName">School Name</label> 
+				<input type="text" id="schoolName" name="schoolName"> 
+				
+				<label for="district">District</label> 
+				<select id="district" name="district">
+					<option value="">Select District</option>
+					<option value="Ledang">Ledang</option>
+					<option value="Segamat">Segamat</option>
+					<option value="Muar">Muar</option>
+					<option value="Batu Pahat">Batu Pahat</option>
+					<option value="Kluang">Kluang</option>
+					<option value="Mersing">Mersing</option>
+					<option value="Pontian">Pontian</option>
+					<option value="Kulai Jaya">Kulai Jaya</option>
+					<option value="Kotat Tnggi">Kota Tinggi</option>
+					<option value="Johor Bahru">Johor Bahru</option>
+				</select>
+			</div>
+
+			
+			
+			<label for="password">Password</label> 
+			<input type="password" id="password" name="password" required>
 
 			<button type="submit">Register</button>
 

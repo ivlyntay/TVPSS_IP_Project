@@ -14,6 +14,6 @@
         <li  class="active"><a href="../profile/profile.jsp"><i class="bi bi-person"></i> Profile</a></li>
         <li><a href="../setting/setting.jsp"><i class="bi bi-gear"></i> Settings</a></li>
         <li class="separator"></li>
-        <li class="logout"><a href="#"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+        <li class="logout"><a href="../../login.jsp"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
     </ul>
 </div>
