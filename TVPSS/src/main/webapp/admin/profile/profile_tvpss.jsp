@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Profile</title>
-<link rel="stylesheet" href="../../css/sidebar_header.css">
+
 <link rel="stylesheet" href="../../css/profile.css">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
@@ -19,7 +19,7 @@
 
 		<!-- Main Content -->
 		<main class="content">
-			  
+			  <%@ include file="../header_tvpss.jsp" %>
 			<h1>Profile</h1>
             <div class="form-container">
                 <!-- Profile Image Upload -->

@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Edit Profile</title>
-<link rel="stylesheet" href="../../css/sidebar_header.css">
+
 <link rel="stylesheet" href="../../css/profile.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
@@ -59,7 +59,7 @@
 					<div class="form-buttons">
 						<button type="submit" class="btn btn-primary">Save Changes</button>
 						<button type="button" class="btn btn-secondary"
-							onclick="window.location.href='profile.jsp'">Cancel</button>
+							onclick="window.location.href='profile_tvpss.jsp'">Cancel</button>
 					</div>
 				</form>
 			</div>

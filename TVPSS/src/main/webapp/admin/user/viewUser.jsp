@@ -9,6 +9,7 @@
 <title>View User Profile</title>
 <link rel="stylesheet" href="../../css/styles.css?v=2">
 <link rel="stylesheet" href="../../css/user.css?v=2">
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
 	rel="stylesheet">
@@ -22,12 +23,12 @@
 			<!-- View User Profile Section -->
 			<h1>User List&nbsp;&nbsp;>&nbsp;&nbsp;${user.fullName}</h1>
 
-			<section class="view-crew-profile">
+			<section class="view-user-profile">
 				<div class="form-container">
 					<div class="profile-details">
 						<div class="image-upload">
 							<img src="../../img/default.jpg" alt="User Profile"
-								class="crew-image">
+								class="user-image">
 						</div>
 						<table>
 							<tr>
@@ -56,7 +57,8 @@
 							</tr>
 							<tr>
 								<td>Youtube Channel:</td>
-								<td>${user.formattedYoutubeLink}</td>
+								<td><a href="https://www.youtube.com/@tvpsssktkk" target="_blank">TVPSS SKTKK (KK STUDIO)</a></td>
+								<%-- <td>${user.formattedYoutubeLink}</td> --%>
 								
 							</tr>
 						</table>

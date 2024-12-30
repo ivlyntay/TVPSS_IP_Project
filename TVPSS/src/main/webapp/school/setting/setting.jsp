@@ -25,7 +25,7 @@
 						Dashboard</a></li>
 				<li><a href="../content/contentList.jsp"><i class="bi bi-journal-text"></i> Content
 						Management</a></li>
-				<li><a href="../program/ProgramStatus.jsp"><i class="bi bi-bar-chart"></i> Program
+				<li><a href="../program/ProgramList.jsp"><i class="bi bi-bar-chart"></i> Program
 						Status Management</a></li>
 				<li><a href="../crew/crewList.jsp"><i class="bi bi-people"></i>
 						Crew Management</a></li>
@@ -34,7 +34,7 @@
 				<li class="active"><a href="../setting/setting.jsp"><i
 						class="bi bi-gear"></i> Settings</a></li>
 				<li class="separator"></li>
-				<li class="logout"><a href="#"><i
+				<li class="logout"><a href="../../login.jsp"><i
 						class="bi bi-box-arrow-right"></i> Logout</a></li>
 			</ul>
 		</aside>
