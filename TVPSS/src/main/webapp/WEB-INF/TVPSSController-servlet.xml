@@ -1,0 +1,37 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/mvc
+                           http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <context:component-scan base-package="com.example.service" />
+    <context:component-scan base-package="com.example.repository" />
+    <context:component-scan base-package="com.example.controller" />
+    <context:component-scan base-package="com.example.model" />
+
+    <bean id="templateResolver"
+		class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
+		 <property name="prefix" value="WEB-INF/templates/" />
+		 <property name="suffix" value=".jsp" />
+	</bean>
+	<bean id="templateEngine"
+		 class="org.thymeleaf.spring5.SpringTemplateEngine">
+		 <property name="templateResolver" ref="templateResolver" />
+	</bean>
+    <bean class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
+		 <property name="templateEngine" ref="templateEngine" />
+		 <property name="characterEncoding" value="UTF-8" />
+	</bean>
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="configLocation" value="classpath:hibernate.cfg.xml"/> <!-- Reference Hibernate config -->
+        <property name="packagesToScan" value="com.example.entity"/> <!-- Specify your entity package -->
+    </bean>
+
+    <mvc:annotation-driven />
+	<mvc:resources mapping="/css/**" location="/css/" />
+</beans>

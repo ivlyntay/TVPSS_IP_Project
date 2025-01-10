@@ -1,213 +1,85 @@
 package com.example.controller;
+
 import com.example.model.CrewMember;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.FileOutputStream;
+import com.example.repository.CrewMemberDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import java.io.File;
-import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
-@WebServlet("/CrewServlet")
-@MultipartConfig
-public class CrewServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+@Controller
+@RequestMapping("/crew")
+public class SchoolCrewController {
 
-    // In-memory crew list
-    private List<CrewMember> crewList;
-    private static int idCounter = 0; // Start ID counter after sample data
+    @Autowired
+    private CrewMemberDao crewMemberDao;
 
-    @Override
-    public void init() throws ServletException {
-        crewList = new ArrayList<>();
-
-        // Store the crewList in session for persistence
-        getServletContext().setAttribute("crewList", crewList);
+    @GetMapping
+    public String listCrew(Model model) {
+        List<CrewMember> crewList = crewMemberDao.getAllCrewMembers();  // Get crew members from the database
+        model.addAttribute("crewList", crewList);
+        return "school/crew/crewList"; // Return view name
     }
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action == null) action = "list"; // Default action
-
-        switch (action) {
-            case "list":
-                listCrew(request, response);
-                break;
-            case "view":
-                viewCrew(request, response);
-                break;
-            case "edit":
-                showEditForm(request, response);
-                break;
-            case "delete":
-                deleteCrew(request, response);
-                break;
-            default:
-                listCrew(request, response);
+    @GetMapping("/view/{id}")
+    public String viewCrew(@PathVariable int id, Model model) {
+        CrewMember crew = crewMemberDao.getCrewMemberById(id);  // Fetch crew member by ID from the database
+        if (crew != null) {
+            model.addAttribute("crew", crew);
+            return "school/crew/viewCrew";
         }
+        return "redirect:/crew"; // Redirect to crew list if not found
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action == null) action = "list"; // Default action
-
-        switch (action) {
-            case "add":
-                addCrew(request, response);
-                break;
-            case "update":
-                updateCrew(request, response);
-                break;
-            case "cancel":
-                cancelAdd(request, response);
-                break;
-            default:
-                listCrew(request, response);
-        }
+    @GetMapping("/add")
+    public String showAddForm(Model model) {
+        model.addAttribute("crew", new CrewMember()); // Empty CrewMember for the form
+        return "school/crew/addCrew";
     }
 
-    private void listCrew(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    		List<CrewMember> crewList = (List<CrewMember>) getServletContext().getAttribute("crewList");
-        
-        // If crewList is not initialized, initialize it
-        if (crewList == null) {
-            crewList = new ArrayList<>();
+    @PostMapping("/add")
+    public String addCrew(@ModelAttribute CrewMember crew, @RequestParam("photo") MultipartFile file, RedirectAttributes redirectAttributes) throws IOException {
+        if (!isValidEmail(crew.getEmail()) || !isValidContact(crew.getContactNumber())) {
+            redirectAttributes.addFlashAttribute("error", "Invalid email or contact number");
+            return "redirect:/crew/add";
         }
 
-        // Add the list to the request attributes for use in JSP
-        request.setAttribute("crewList", crewList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("crewList.jsp");
-        dispatcher.forward(request, response);
+        String photoName = savePhoto(file);
+        crew.setPhoto(photoName); // Set photo name
+
+        crewMemberDao.saveCrewMember(crew);  // Save the new crew member to the database
+        redirectAttributes.addFlashAttribute("message", "Crew added successfully");
+        return "redirect:/crew";
     }
 
-    protected void viewCrew(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String idParam = request.getParameter("id");
-
-        int id= Integer.parseInt(idParam);
-
-        CrewMember crew = findCrewById(id);
-        request.setAttribute("crew", crew);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("viewCrew.jsp");
-        dispatcher.forward(request, response);
-    }
-
-    protected void showEditForm(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        List<CrewMember> crewList = (List<CrewMember>) getServletContext().getAttribute("crewList");
-
-        // Find the crew member by ID
-        CrewMember crew = crewList.stream().filter(c -> c.getId() == id).findFirst().orElse(null);
-
-        // Set the crew member as an attribute for the edit form
-        request.setAttribute("crew", crew);
-
-        // Forward to the edit form page
-        RequestDispatcher dispatcher = request.getRequestDispatcher("editCrew.jsp");
-        dispatcher.forward(request, response);
-    }
-
-
-    private void addCrew(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String fullName = request.getParameter("fullName");
-        String icNumber = request.getParameter("icNumber");
-        String email = request.getParameter("email");
-        String contactNumber = request.getParameter("contactNumber");
-        String gender = request.getParameter("gender");
-        String role = request.getParameter("role");
-
-        if (!isValidEmail(email) || !isValidContact(contactNumber)) {
-            throw new ServletException("Invalid email or contact number.");
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable int id, Model model) {
+        CrewMember crew = crewMemberDao.getCrewMemberById(id);  // Fetch crew member by ID from the database
+        if (crew != null) {
+            model.addAttribute("crew", crew);
+            return "school/crew/editCrew";
         }
-
-        CrewMember newCrew = new CrewMember(++idCounter, fullName, icNumber, email, contactNumber, gender, role);
-        crewList.add(newCrew);
-
-        getServletContext().setAttribute("crewList", crewList);
-        response.sendRedirect("/TVPSS/school/crew/CrewServlet?action=list");
+        return "redirect:/crew"; // Redirect if crew not found
     }
 
-
-    private void updateCrew(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    	int crewId = Integer.parseInt(request.getParameter("crewId"));
-        String fullName = request.getParameter("fullName");
-        String icNumber = request.getParameter("icNumber");
-        String email = request.getParameter("email");
-        String contactNumber = request.getParameter("contactNumber");
-        String gender = request.getParameter("gender");
-        String role = request.getParameter("role");
-        List<CrewMember> crewList = (List<CrewMember>) getServletContext().getAttribute("crewList");
-
-     // Find the crew member to update
-        for (CrewMember crew : crewList) {
-            if (crew.getId() == crewId) {
-                // Update the crew member's details
-                crew.setFullName(fullName);
-                crew.setIcNumber(icNumber);
-                crew.setEmail(email);
-                crew.setContactNumber(contactNumber);
-                crew.setGender(gender);
-                crew.setRole(role);
-                break;
-            }
-        }
-
-        // Save the updated list back to the application context
-        getServletContext().setAttribute("crewList", crewList);
-
-        // Redirect to the crew list page
-        response.sendRedirect("crewList.jsp");
+    @PostMapping("/update")
+    public String updateCrew(@ModelAttribute CrewMember crew, RedirectAttributes redirectAttributes) {
+        crewMemberDao.updateCrewMember(crew);  // Update crew member in the database
+        redirectAttributes.addFlashAttribute("message", "Crew updated successfully");
+        return "redirect:/crew";
     }
 
-    protected void deleteCrew(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        List<CrewMember> crewList = (List<CrewMember>) getServletContext().getAttribute("crewList");
-
-        // Remove the crew member from the list
-        crewList.removeIf(c -> c.getId() == id);
-
-        // Update the crew list in the ServletContext
-        getServletContext().setAttribute("crewList", crewList);
-
-        // Redirect to the list action to show the updated crew list
-        response.sendRedirect("crewList.jsp?action=list");
-    }
-
-
-    private void cancelAdd(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
-    	response.sendRedirect("/TVPSS/school/crew/CrewServlet?action=list");
-    }
-
-    private CrewMember findCrewById(int id) {
-        List<CrewMember> crewList = (List<CrewMember>) getServletContext().getAttribute("crewList");
-        if (crewList != null) {
-            for (CrewMember crew : crewList) {
-                if (crew.getId() == id) {
-                    System.out.println("Found Crew: " + crew.getFullName());
-                    return crew;
-                }
-            }
-        }
-        System.out.println("Crew with ID " + id + " not found.");
-        return null;
+    @GetMapping("/delete/{id}")
+    public String deleteCrew(@PathVariable int id, RedirectAttributes redirectAttributes) {
+        crewMemberDao.deleteCrewMember(id);  // Delete crew member from the database
+        redirectAttributes.addFlashAttribute("message", "Crew deleted successfully");
+        return "redirect:/crew";
     }
 
     private boolean isValidEmail(String email) {
@@ -218,29 +90,17 @@ public class CrewServlet extends HttpServlet {
         return contact != null && contact.matches("^\\d{10,15}$");
     }
 
-    private String savePhoto(Part filePart) throws IOException {
-        if (filePart == null || filePart.getSize() == 0) {
+    private String savePhoto(MultipartFile file) throws IOException {
+        if (file.isEmpty()) {
             return "default.jpg"; // Default photo if no file uploaded
         }
 
-        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-        String uploadDir = getServletContext().getRealPath("../../uploaded_photos");
-
-        // Ensure the upload directory exists
-        File uploadDirFile = new File(uploadDir);
-        if (!uploadDirFile.exists()) {
-            uploadDirFile.mkdir();
-        }
+        // Save file logic here, for example, save in a folder under /uploaded_photos/
+        String fileName = file.getOriginalFilename();
+        String uploadDir = "C:/uploads"; // You can change the directory as needed
 
         // Save the file
-        try (InputStream fileContent = filePart.getInputStream();
-             FileOutputStream outputStream = new FileOutputStream(new File(uploadDir + File.separator + fileName))) {
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = fileContent.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
-            }
-        }
+        file.transferTo(new File(uploadDir + File.separator + fileName));
 
         return fileName;
     }
